@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg4735" viewBox="0 0 20.99999907 20.99999992" height="21" width="21" inkscape:version="0.91 r13725" sodipodi:docname="star-full.svg">
+  <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1440" inkscape:window-height="824" id="namedview19" showgrid="false" inkscape:zoom="28.18303571" inkscape:cx="10.5" inkscape:cy="10.5" inkscape:window-x="0" inkscape:window-y="24" inkscape:window-maximized="1" inkscape:current-layer="svg4735" />
+  <defs id="defs4737">
+    <filter height="2" width="2" y="-0.5" x="-0.5" id="filter7995" style="color-interpolation-filters:sRGB;">
+      <feFlood id="feFlood7997" result="flood" flood-color="rgb(0,0,0)" flood-opacity="1" />
+      <feComposite id="feComposite7999" result="composite1" operator="in" in2="SourceGraphic" in="flood" />
+      <feGaussianBlur id="feGaussianBlur8001" result="blur" stdDeviation="1" in="composite1" />
+      <feOffset id="feOffset8003" result="offset" dy="-1.94289e-16" dx="2.498e-16" />
+      <feComposite id="feComposite8005" result="fbSourceGraphic" operator="over" in2="offset" in="SourceGraphic" />
+      <feColorMatrix id="feColorMatrix8007" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0" in="fbSourceGraphic" result="fbSourceGraphicAlpha" />
+      <feFlood in="fbSourceGraphic" result="flood" flood-color="rgb(0,0,0)" flood-opacity="1" id="feFlood8009" />
+      <feComposite result="composite1" operator="in" in="flood" in2="fbSourceGraphic" id="feComposite8011" />
+      <feGaussianBlur result="blur" stdDeviation="1" in="composite1" id="feGaussianBlur8013" />
+      <feOffset result="offset" dy="-1.94289e-16" dx="2.498e-16" id="feOffset8015" />
+      <feComposite result="composite2" operator="over" in="fbSourceGraphic" in2="offset" id="feComposite8017" />
+    </filter>
+  </defs>
+  <metadata id="metadata4740">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Gabriel A. Zorrilla - gabriel at zorrilla dot me</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:date>2015.03.24</dc:date>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/by/3.0/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g transform="translate(327.9101058,-202.8628502)" id="layer1" style="fill:#ffff00;fill-opacity:1;stroke:#c89600;stroke-opacity:1">
+    <path id="path4159-9" d="m -317.4101058,206.1628502 -2.1,5.1 -5.4,0.3 4.1109375,3.6679688 -1.4109375,5.3320312 4.8,-2.7 4.8,2.7 -1.4109375,-5.3320312 4.1109375,-3.6679688 -5.4,-0.3 -2.1,-5.1 z" style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#c89600;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate;filter:url(#filter7995)" />
+  </g>
+</svg>
