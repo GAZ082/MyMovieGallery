@@ -11,17 +11,18 @@ import os
 #CONFIGURATION PARAMETERS                                                     #
 #-----------------------------------------------------------------------------#
 
+host = 'localhost' #Change this to suit your needs.
+port = '8080' #This is the default port.
 gallery_name = 'My Movie Gallery'
 tmdb_key = 'f8860327b25dbbe0d96d9e5d1db91779'
 poster_size = 'w185' # 'w92', 'w154', 'w185', 'w342', 'w500', 'original'
 language = 'en' #Only english works 100% (I guess). Others may fail.
 web_dir = '' #Optional. In case you want to host the script in a different dir.
+             #So far the directory 'assets' must be in the same dir than main.py
 
 #-----------------------------------------------------------------------------#
 
-def get_movies_from_kodi():
-    host = 'kraken'
-    port = '8080'
+def get_movies_from_kodi(host,port):
     url = 'http://' + host + ':' + port + '/jsonrpc'
     headers = {'content-type': 'application/json'}
     payload = ({"jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params":
@@ -64,7 +65,7 @@ def save_poster_image(poster_url, imdbid, size, web_dir):
     f.write(r.content)
     f.close()
 
-    
+
 def movie_stars(stars):
     full_stars = math.floor(round(stars)/2)
     remaining_stars = round(stars)/2 - full_stars;
@@ -115,7 +116,7 @@ def write_html(movies, web_dir):
               + "<meta charset='UTF-8'>" + cssfile + "</head><body>" +
               "<div id='gallery_name'>" + gallery_name + "</div><table>")
     footer = ("</table><div id='line'></div><div id='footer'>" + made + "<br>"
-              + projectLink + "<br>Thanks to:<br><br>" + tmdblogo + "</div>" + 
+              + projectLink + "<br>Thanks to:<br><br>" + tmdblogo + "</div>" +
               "</body></html>")
     html = header + movies + footer
     f = open(os.path.join(web_dir, 'index.html'), 'w', encoding='utf-8')
@@ -128,7 +129,7 @@ if __name__ == "__main__":
     posters_to_retrieve = []
     movies_html = ""
     counter = 1
-    for i in get_movies_from_kodi():
+    for i in get_movies_from_kodi(host, port):
         r = check_if_poster_exists(i['imdbnumber'], poster_size, web_dir)
         poster_url = ("posters/" + poster_size + "/" + i['imdbnumber'] +
                      '.jpeg')
