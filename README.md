@@ -3,6 +3,15 @@
 
 <img align='middle' src='https://lh6.googleusercontent.com/-4O55ZZmjQxo/VRG5K3YZssI/AAAAAAAACbw/E8rIH1bHxU4/w804-h549-no/intro.png'>
 
+###Features
+* HTML5 valid code, so it renders fine in a myriad of devices such as phones,
+tablets and browsers.
+* Watched movie ribbon.
+* 5 stars ratings.
+* Able to download several poster sizes.
+* Movie synopsis when you roll over the poster.
+* Eye candy ;-).
+
 ###Requirements
 * Python 2 or 3.
 * python2-requests (or python3-requests).
