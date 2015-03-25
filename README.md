@@ -25,7 +25,7 @@ downloads. If no directory is there, it creates. The posters downloaded are 2:3.
 4. If no new posters are needed, it just recreated index.html but with the
 latest information from KODI, ie, updated rating, if watched or not, etc.
 
-###Final Words.
+###Final Words
 This is an early release. Just tested on a Linux machine with python 2 and 3.
 Please report any bugs and also do not be shy on suggesting things you would
 like to see or corrected. Also, the code is available, so be free to look at it
