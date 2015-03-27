@@ -1,7 +1,9 @@
-import requests
 import json
 import math
 import os
+
+import requests
+
 
 #-----------------------------------------------------------------------------#
 # Program: My Movie Gallery.                                                  #
@@ -69,8 +71,8 @@ def save_poster_image(poster_url, imdbid, size, web_dir):
 def movie_stars(stars):
     full_stars = math.floor(round(stars)/2)
     remaining_stars = round(stars)/2 - full_stars;
-    full_star_url = os.path.join(web_dir, 'assets', 'star-full.svg')
-    half_star_url = os.path.join(web_dir, 'assets', 'star-half.svg')
+    full_star_url = os.path.join('assets', 'star-full.svg')
+    half_star_url = os.path.join('assets', 'star-half.svg')
     img_full_star_html = "<img src='" + full_star_url + "' alt='star full'>"
     img_half_star_html = "<img src='" + half_star_url + "' alt='star half'>"
     if remaining_stars >= 0.5:
@@ -109,8 +111,8 @@ def write_html(movies, web_dir):
                    "Project link.</a>");
     made = 'Made by Gabriel A. Zorrilla.'
     cssfile = ("<link rel='stylesheet' type='text/css' href=" +
-    os.path.join(web_dir,'assets','styles.css') + ">")
-    tmdblogo = ("<img src='" + os.path.join(web_dir,'assets','tmdb.svg' +
+    os.path.join('assets','styles.css') + ">")
+    tmdblogo = ("<img src='" + os.path.join('assets','tmdb.svg' +
                 "' alt='www.themoviedb.org'>"))
     header = ("<!DOCTYPE html><html><head><title>" + gallery_name + "</title>"
               + "<meta charset='UTF-8'>" + cssfile + "</head><body>" +
