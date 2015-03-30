@@ -9,6 +9,7 @@ tablets and browsers.
 * Watched movie ribbon.
 * 5 stars ratings.
 * Able to download several poster sizes.
+* PushBullet notification to a device.
 * Movie synopsis when you roll over the poster.
 * Eye candy ;-).
 
@@ -24,6 +25,9 @@ tablets and browsers.
 permissions to let the user running the script write files.
 5. You may host main.py anywhere you want, just set where assets are, posters
 and index.html will be written in the parameter web_dir.
+6. If you want to know when new movies are added, you may configure PushBullet.
+Use the provided pb_devices.py script to get your devices iden (first you need a
+pushbullet Access Token https://www.pushbullet.com/account).
 
 ###How It Works
 1. Pulls all your movies from KODI. Gets IMDB ID, rating, synopsis, playcount
