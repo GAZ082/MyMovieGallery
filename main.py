@@ -13,7 +13,7 @@ import requests
 
 # CONFIGURATION PARAMETERS
 
-host = 'kraken'
+host = 'localhost'
 # KODI host (ip, hostname). Change this to suit your needs.
 port = '8080'
 # This is the default KODI's port.
