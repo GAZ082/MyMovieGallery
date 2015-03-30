@@ -7,26 +7,33 @@ import requests
 
 
 
-#-----------------------------------------------------------------------------#
-# Program: My Movie Gallery.                                                  #
-# Author: Gabriel A. Zorrilla. gabriel at zorrilla dot me                     #
-# Copyright: GPL 3.0                                                          #
-#-----------------------------------------------------------------------------#
-#CONFIGURATION PARAMETERS                                                     #
-#-----------------------------------------------------------------------------#
+# Program: My Movie Gallery.
+# Author: Gabriel A. Zorrilla. gabriel at zorrilla dot me
+# Copyright: GPL 3.0
 
-host = 'localhost' #Change this to suit your needs.
-port = '8080' #This is the default port.
+# CONFIGURATION PARAMETERS
+
+host = 'kraken'
+# KODI host (ip, hostname). Change this to suit your needs.
+port = '8080'
+# This is the default KODI's port.
 gallery_name = 'My Movie Gallery'
 tmdb_key = 'f8860327b25dbbe0d96d9e5d1db91779'
-poster_size = 'w185' # 'w92', 'w154', 'w185', 'w342', 'w500', 'original'
-language = 'en' #Only english works 100% (I guess). Others may fail.
-web_dir = '' #Optional. In case you want to host the script in a different dir.
-             #So far the directory 'assets' must be in the same dir than main.py
-#-----------------------------------------------------------------------------#
+poster_size = 'w185'
+# 'w92', 'w154', 'w185', 'w342', 'w500'.
+language = 'en'
+# English language has the largest poster collection on TMDB.
+web_dir = ''
+# Optional. In case you want to host the script in a different dir.
+# So far the directory 'assets' must be in the same dir than main.py
+pushbullet_api_key = ''
+# Optional. Your PB Access token. If value is other than '', notifications will
+# be activated.
+pushbullet_device_iden = ''
+# Your device iden. Use pb_devices.py script to get your device's iden.
 
 
-def get_movies_from_kodi(host,port):
+def get_movies_from_kodi(host, port):
     url = 'http://' + host + ':' + port + '/jsonrpc'
     headers = {'content-type': 'application/json'}
     payload = ({"jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params":
@@ -56,7 +63,7 @@ def check_if_poster_exists(imdbid, size, web_dir):
     folder_path = os.path.join(web_dir, 'posters', size)
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-    if os.path.isfile(os.path.join(folder_path,imdbid + '.jpeg')):
+    if os.path.isfile(os.path.join(folder_path, imdbid + '.jpeg')):
         return True
 
 
@@ -71,8 +78,8 @@ def save_poster_image(poster_url, imdbid, size, web_dir):
 
 
 def movie_stars(stars):
-    full_stars = math.floor(round(stars)/2)
-    remaining_stars = round(stars)/2 - full_stars;
+    full_stars = math.floor(round(stars) / 2)
+    remaining_stars = round(stars) / 2 - full_stars;
     full_star_url = os.path.join('assets', 'star-full.svg')
     half_star_url = os.path.join('assets', 'star-half.svg')
     img_full_star_html = "<img src='" + full_star_url + "' alt='star full'>"
@@ -85,7 +92,7 @@ def movie_stars(stars):
 
 
 def create_movie_html_block(title, imdbid, poster_url, position, plot, count,
-                         rating):
+                            rating):
     title = title.replace("'", "")
     plot = plot.replace("'", "")
     poster = ("<img src='" + poster_url + "' alt='" + title + "' title='" +
@@ -113,9 +120,9 @@ def write_html(movies, web_dir):
                    "Project link.</a>");
     made = 'Made by Gabriel A. Zorrilla'
     cssfile = ("<link rel='stylesheet' type='text/css' href=" +
-    os.path.join('assets','styles.css') + ">")
-    tmdblogo = ("<img src='" + os.path.join('assets','tmdb.svg' +
-                "' alt='www.themoviedb.org'>"))
+               os.path.join('assets', 'styles.css') + ">")
+    tmdblogo = ("<img src='" + os.path.join('assets', 'tmdb.svg' +
+                                            "' alt='www.themoviedb.org'>"))
     header = ("<!DOCTYPE html><html><head><title>" + gallery_name + "</title>"
               + "<meta charset='UTF-8'>" + cssfile + "</head><body>" +
               "<div id='gallery_name'>" + gallery_name + "</div><table>")
@@ -127,6 +134,19 @@ def write_html(movies, web_dir):
     f = open(os.path.join(web_dir, 'index.html'), 'w', encoding='utf-8')
     f.write(html)
     f.close()
+
+
+def pushbullet_notification(apikey, movies, gallery, device):
+    string_to_push = ''
+    for i in movies:
+        string_to_push += i + ', '
+    string_to_push = 'New movies added: ' + string_to_push[:-2] + '.'
+    url = 'https://api.pushbullet.com/v2/pushes'
+    headers = {'content-type': 'application/json',
+               'Authorization': 'Bearer ' + apikey}
+    payload = {'device_iden': device, 'type': 'note', 'title': gallery,
+               'body': string_to_push}
+    requests.post(url, data=json.dumps(payload), headers=headers)
 
 
 if __name__ == "__main__":
@@ -157,3 +177,7 @@ if __name__ == "__main__":
         print('Downloaded poster ' + str(counter) + ' / ' + posters_to_get +
               '.')
     write_html(movies_html, web_dir)
+    if pushbullet_api_key != '':
+        if len(label_posters_to_retrieve) != 0:
+            pushbullet_notification(pushbullet_api_key,
+            label_posters_to_retrieve, gallery_name, pushbullet_device_iden)
