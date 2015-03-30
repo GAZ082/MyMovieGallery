@@ -1,8 +1,10 @@
 import json
 import math
+import time
 import os
 
 import requests
+
 
 
 #-----------------------------------------------------------------------------#
@@ -21,8 +23,8 @@ poster_size = 'w185' # 'w92', 'w154', 'w185', 'w342', 'w500', 'original'
 language = 'en' #Only english works 100% (I guess). Others may fail.
 web_dir = '' #Optional. In case you want to host the script in a different dir.
              #So far the directory 'assets' must be in the same dir than main.py
-
 #-----------------------------------------------------------------------------#
+
 
 def get_movies_from_kodi(host,port):
     url = 'http://' + host + ':' + port + '/jsonrpc'
@@ -109,7 +111,7 @@ def create_movie_html_block(title, imdbid, poster_url, position, plot, count,
 def write_html(movies, web_dir):
     projectLink = ("<a href='https://github.com/GAZ082/MyMovieGallery'>" +
                    "Project link.</a>");
-    made = 'Made by Gabriel A. Zorrilla.'
+    made = 'Made by Gabriel A. Zorrilla'
     cssfile = ("<link rel='stylesheet' type='text/css' href=" +
     os.path.join('assets','styles.css') + ">")
     tmdblogo = ("<img src='" + os.path.join('assets','tmdb.svg' +
@@ -117,18 +119,19 @@ def write_html(movies, web_dir):
     header = ("<!DOCTYPE html><html><head><title>" + gallery_name + "</title>"
               + "<meta charset='UTF-8'>" + cssfile + "</head><body>" +
               "<div id='gallery_name'>" + gallery_name + "</div><table>")
-    footer = ("</table><div id='line'></div><div id='footer'>" + made + "<br>"
-              + projectLink + "<br>Thanks to:<br><br>" + tmdblogo + "</div>" +
-              "</body></html>")
+    updated = 'Movie list updated on: ' + time.strftime("%Y.%m.%d@%H:%M:%S")
+    footer = ("</table><div id='line'></div><div id='footer'>" + updated +
+              '<br>' + made + "<br>" + projectLink + "<br>Thanks to:<br><br>" +
+              tmdblogo + "</div>" + "</body></html>")
     html = header + movies + footer
     f = open(os.path.join(web_dir, 'index.html'), 'w', encoding='utf-8')
     f.write(html)
     f.close()
 
 
-
 if __name__ == "__main__":
     posters_to_retrieve = []
+    label_posters_to_retrieve = []
     movies_html = ""
     counter = 1
     for i in get_movies_from_kodi(host, port):
@@ -140,6 +143,7 @@ if __name__ == "__main__":
                      i['playcount'],i['rating']))
         if not r:
             posters_to_retrieve.append(i['imdbnumber'])
+            label_posters_to_retrieve.append(i['label'])
         if counter != 5:
             counter += 1
         else:
