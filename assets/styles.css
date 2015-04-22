@@ -4,8 +4,6 @@ html {
 }
 
 body {
-    margin: auto;
-    display: table;
     background-color: slategrey;
 }
 
@@ -17,9 +15,8 @@ body {
 #gallery_name {
     font-family: Champignon;
     font-size: 6em;
-    text-align: center;
     color: #CACFD4;
-    margin-bottom: 20px;
+    margin-bottom: 0.5em;
 }
 
 .movie {
@@ -27,6 +24,7 @@ body {
     padding: 10px;
     margin: 5px;
     background-color: white;
+    display: inline-block;
 }
 
 .watched {
@@ -42,7 +40,6 @@ body {
 .star_container {
     width: 100%;
     height: 16px;
-    text-align: center;
 }
 
 #line {
@@ -56,7 +53,6 @@ body {
 
 #footer {
     color: #CACFD4;
-    text-align: center;
     font-size: 10px;
 }
 
@@ -68,4 +64,8 @@ a {
 a:hover {
     color: #374F66;
     text-decoration: underline;
+}
+
+#container{
+    text-align: center;
 }

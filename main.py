@@ -6,7 +6,6 @@ import os
 import requests
 
 
-
 # Program: My Movie Gallery.
 # Author: Gabriel A. Zorrilla. gabriel at zorrilla dot me
 # Copyright: GPL 3.0
@@ -109,9 +108,9 @@ def create_movie_html_block(title, imdbid, poster_url, position, plot, count,
     elif position == 5:
         row_open = ''
         row_close = '</tr>'
-    block = (row_open + "<td><div class='movie'>" + watched + poster + "<br>" +
+    block = ("<div class='movie'>" + watched + poster + "<br>" +
              "<div class='star_container'>" + movie_stars(rating) + "</div>" +
-             "</div></td>" + row_close)
+             "</div>")
     return block
 
 
@@ -119,17 +118,23 @@ def write_html(movies, web_dir):
     projectLink = ("<a href='https://github.com/GAZ082/MyMovieGallery'>" +
                    "Project link.</a>");
     made = 'Made by Gabriel A. Zorrilla'
-    cssfile = ("<link rel='stylesheet' type='text/css' href=" +
-               os.path.join('assets', 'styles.css') + ">")
+    cssfile = ("<link rel='stylesheet' type='text/css' href='" +
+               os.path.join('assets', 'styles.css') + "'>")
     tmdblogo = ("<img src='" + os.path.join('assets', 'tmdb.svg' +
                                             "' alt='www.themoviedb.org'>"))
+    meta = ("<meta name='author' content='Gabriel A. Zorrilla'>" +
+            "<meta name='keywords' content='KODI, XBMC, movie, gallery, "
+            "HTML5'>" + "<meta name='description' content='My Movie Gallery:"
+            + "Python script to show your KODI movies to the world!'>" +
+            "<meta charset='UTF-8'>")
     header = ("<!DOCTYPE html><html><head><title>" + gallery_name + "</title>"
-              + "<meta charset='UTF-8'>" + cssfile + "</head><body>" +
-              "<div id='gallery_name'>" + gallery_name + "</div><table>")
+              + meta + cssfile +
+              "</head><body><div id='container'>" + "<div id='gallery_name'>" +
+              gallery_name + "</div>")
     updated = 'Movie list updated on: ' + time.strftime("%Y.%m.%d@%H:%M:%S")
-    footer = ("</table><div id='line'></div><div id='footer'>" + updated +
+    footer = ("<div id='line'></div><div id='footer'>" + updated +
               '<br>' + made + "<br>" + projectLink + "<br>Thanks to:<br><br>" +
-              tmdblogo + "</div>" + "</body></html>")
+              tmdblogo + "</div>" + "</div></body></html>")
     html = header + movies + footer
     f = open(os.path.join(web_dir, 'index.html'), 'w', encoding='utf-8')
     f.write(html)
