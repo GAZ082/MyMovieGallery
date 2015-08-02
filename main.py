@@ -1,18 +1,24 @@
+import os
 import json
 import math
 import time
-import os
+import sys
+from shutil import copyfile
 
 import requests
 
+
+# -------------------------------------{O}-------------------------------------#
 
 # Program: My Movie Gallery.
 # Author: Gabriel A. Zorrilla. gabriel at zorrilla dot me
 # Copyright: GPL 3.0
 
-# CONFIGURATION PARAMETERS
+# -------------------------------------{O}-------------------------------------#
 
-host = 'localhost'
+# --------------------------CONFIGURATION PARAMETERS---------------------------#
+
+host = 'kraken'
 # KODI host (ip, hostname). Change this to suit your needs.
 port = '8080'
 # This is the default KODI's port.
@@ -24,13 +30,14 @@ language = 'en'
 # English language has the largest poster collection on TMDB.
 web_dir = ''
 # Optional. In case you want to host the script in a different dir.
-# So far the directory 'assets' must be in the same dir than main.py
+# Directory 'assets' must be in the same dir than main.py
 pushbullet_api_key = ''
 # Optional. Your PB Access token. If value is other than '', notifications will
 # be activated.
 pushbullet_device_iden = ''
 # Your device iden. Use pb_devices.py script to get your device's iden.
 
+#-------------------------------------{O}-------------------------------------#
 
 def get_movies_from_kodi(host, port):
     url = 'http://' + host + ':' + port + '/jsonrpc'
@@ -39,9 +46,13 @@ def get_movies_from_kodi(host, port):
         {"properties": ["rating", "imdbnumber", "playcount", "plot"], "sort":
             {"order": "ascending", "method": "label", "ignorearticle": True}},
                 "id": "libMovies"})
-    r = requests.post(url, data=json.dumps(payload), headers=headers)
-    r = r.json()
-    return r['result']['movies']
+    try:
+        r = requests.post(url, data=json.dumps(payload), headers=headers)
+        r = r.json()
+        return r['result']['movies']
+    except:
+        print('Connection error. Please check host and port.')
+        sys.exit()
 
 
 def get_poster_image_url(imdbid, tmdb_key, size, language):
@@ -51,10 +62,15 @@ def get_poster_image_url(imdbid, tmdb_key, size, language):
            '&language=' + language)
     r = requests.get(url)
     i = 0
-    while r.json()['posters'][i]['aspect_ratio'] != 0.666666666666667:
-        i += 1
-    image_url = r.json()['posters'][i]['file_path']
-    poster_url = 'http://image.tmdb.org/t/p/' + size + image_url
+    try:
+        while r.json()['posters'][i]['aspect_ratio'] != 0.666666666666667:
+            i += 1
+        image_url = r.json()['posters'][i]['file_path']
+        poster_url = 'http://image.tmdb.org/t/p/' + size + image_url
+    except IndexError:
+        print('No poster exists. Using default no poster image.')
+        poster_url = "no-image"
+
     return poster_url
 
 
@@ -68,12 +84,19 @@ def check_if_poster_exists(imdbid, size, web_dir):
 
 def save_poster_image(poster_url, imdbid, size, web_dir):
     folder_path = os.path.join(web_dir, 'posters', size)
-    r = requests.get(poster_url)
-    filetype = r.headers['content-type'].split('/')[-1]
-    filepath = os.path.join(folder_path, imdbid + '.' + filetype)
-    f = open(filepath, "wb")
-    f.write(r.content)
-    f.close()
+
+    if poster_url == 'no-image':
+        no_image_path = os.path.join(web_dir, 'assets',
+                                     'no-image-' + size + '.jpeg')
+        filepath = os.path.join(folder_path, imdbid + '.jpeg')
+        copyfile(no_image_path, filepath)
+    else:
+        r = requests.get(poster_url)
+        filetype = r.headers['content-type'].split('/')[-1]
+        filepath = os.path.join(folder_path, imdbid + '.' + filetype)
+        f = open(filepath, "wb")
+        f.write(r.content)
+        f.close()
 
 
 def movie_stars(stars):
@@ -162,10 +185,14 @@ if __name__ == "__main__":
     for i in get_movies_from_kodi(host, port):
         r = check_if_poster_exists(i['imdbnumber'], poster_size, web_dir)
         poster_url = ("posters/" + poster_size + "/" + i['imdbnumber'] +
-                     '.jpeg')
+                      '.jpeg')
         movies_html = (movies_html + create_movie_html_block(i['label'],
-                     i['imdbnumber'], poster_url, counter, i['plot'],
-                     i['playcount'],i['rating']))
+                                                             i['imdbnumber'],
+                                                             poster_url,
+                                                             counter,
+                                                             i['plot'],
+                                                             i['playcount'],
+                                                             i['rating']))
         if not r:
             posters_to_retrieve.append(i['imdbnumber'])
             label_posters_to_retrieve.append(i['label'])
@@ -178,6 +205,7 @@ if __name__ == "__main__":
     for i in posters_to_retrieve:
         counter += 1
         url = get_poster_image_url(i, tmdb_key, poster_size, language)
+
         save_poster_image(url, i, poster_size, web_dir)
         print('Downloaded poster ' + str(counter) + ' / ' + posters_to_get +
               '.')
@@ -185,4 +213,5 @@ if __name__ == "__main__":
     if pushbullet_api_key != '':
         if len(label_posters_to_retrieve) != 0:
             pushbullet_notification(pushbullet_api_key,
-            label_posters_to_retrieve, gallery_name, pushbullet_device_iden)
+                                    label_posters_to_retrieve, gallery_name,
+                                    pushbullet_device_iden)
