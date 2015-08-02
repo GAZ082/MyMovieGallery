@@ -18,7 +18,7 @@ tablets and browsers.
 * python2-requests (or python3-requests).
 
 ###Configuration
-1. You may put the directory assets and main.py anywhere you want.
+1. Make sure you put the directory 'assets' in the 'web_server' you specified. main.py may be everywhere (your home dir for example, away from the public server directory, for better security).
 2. Edit main.py and setup the server host and port if needed.
 3. Name your gallery and change poster size if desired.
 4. If running on Linux, make sure your destination directory has the proper
