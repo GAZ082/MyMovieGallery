@@ -25,6 +25,8 @@ body {
     margin: 5px;
     background-color: white;
     display: inline-block;
+    height: 360px;
+    width: 205px;
 }
 
 .watched {
@@ -33,13 +35,29 @@ body {
     z-index: 1;
     width: 34px;
     height: 66px;
-    background-image: url(watched-ribbon.svg);
+    background-image: url("watched-ribbon.svg");
     margin: -10px;
 }
 
 .star_container {
     width: 100%;
     height: 16px;
+}
+
+.movietext {
+	font-size: 10px;
+	margin: 5px;
+}
+
+.trailer {
+	
+	position: absolute;	
+	z-index: 1;
+	float: right;
+} 
+
+.trailer img {
+	width: 10%; 
 }
 
 #line {

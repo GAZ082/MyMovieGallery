@@ -1,0 +1,24 @@
+# --------------------------CONFIGURATION PARAMETERS---------------------------#
+
+host = ''
+# KODI host (ip, hostname). Change this to suit your needs.
+port = '8080'
+# This is the default KODI's port.
+gallery_name = 'My Movie Gallery'
+tmdb_key = 'f8860327b25dbbe0d96d9e5d1db91779'
+poster_size = 'w185'
+# 'w92', 'w154', 'w185', 'w342', 'w500'.
+language = 'en'
+# English language has the largest poster collection on TMDB.
+web_dir = ''
+# Optional. In case you want to host the script in a different dir.
+# Directory 'assets' must be in the same dir than main.py
+pushbullet_api_key = ''
+# Optional. Your PB Access token. If value is other than '', notifications will
+# be activated.
+pushbullet_device_iden = ''
+# Your device iden. Use pb_devices.py script to get your device's iden.
+limit=-100
+#limits the query result from KODI, negative means no-limit
+
+
