@@ -272,7 +272,8 @@ def create_movie_html_block(movie):
 	keys=tekstreplace().dict2keys(movie)
 	
 	#add extra keys
-	keys['%watchedclass%'] 		= 'unwatched'
+	if not '%watchedclass%' in keys:
+		keys['%watchedclass%'] 		= 'unwatched'
 	if movie['playcount'] > 0 :
 		keys['%watchedclass%'] 	= 'watched'
 
@@ -424,9 +425,11 @@ if __name__ == "__main__":
 	#add extra info to the movie for html generation mainly
         movie['counter']=counter;
 	movie['poster_url']="posters/"+poster_size+"/"+movie['imdbnumber']+'.jpeg'
-	movie['movieclass']='old'
+	movie['movieclass']	='old'
 	if movie['movieid'] in new_movies:
-		movie['movieclass']='new'
+		movie['movieclass']	='new' 	 	#set the background for new movies
+		movie['watchedclass']	='newmovie'     #add a new ribbon, overrides by watched
+
 #	elif not inlist(prev_movies,'movieid',movie['movieid']):
 	elif not movie['movieid'] in prev_movies:
 		movie['movieclass']='added'

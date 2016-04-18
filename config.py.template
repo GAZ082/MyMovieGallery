@@ -48,7 +48,7 @@ htmllint=False
 htmllint_warnings=True
 #set the lint level from error to warning, not wise in productions env cause it will block release
 
-cssinline=True
+cssinline=False
 #use cssfile inline instead of a cssfile_template reference
 
 cssfile='assets/styles.css'
@@ -57,7 +57,7 @@ cssfile_template	="<link rel='stylesheet' type='text/css' href='%cssfile%'>"
 
 
 jsfile='assets/script.js'
-jsinline=True
+jsinline=False
 jsfile_template		="<script type='text/JavaScript' src='%jsfile%'></script>"
 #use this js file with functions as search and filter 
 

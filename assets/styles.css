@@ -2,24 +2,27 @@ html 		{ margin: 10px; padding: 0px; }
 
 body 		{ background-color: slategrey;}
 
-@font-face 	{ font-family: Champignon; src: url(assets/Champignon.otf); }
+@font-face 	{ font-family: Champignon; src: url(Champignon.otf); }
 
 #gallery_name 	{ font-family: Champignon; font-size: 6em; color: #CACFD4; margin-bottom: 0.5em; }
 
-.movie.new 	{ background-color: red;     }
+.movie.new 	{ background-color: white;     }
 .movie.old 	{ background-color: white;   }
 .movie.added	{ background-color: #c0c0c0; }
 
 .trailervideo 	{ display: none; position: absolute; float: right; z-index: 1; margin: 90px 10px }
 .visible 	{ display: block; }
-#.movie 		{ box-shadow: 2px 2px 2px black; padding: 10px; margin: 5px; display: inline-block; height: 360px; width: 205px; }
 .movie 		{ box-shadow: 2px 2px 2px black; padding: 10px; margin: 5px; display: inline-block; width: 205px; position: relative; }
 
 .poster 	{ width: 185px; height: 278px; font-size:20px; }
-.watched 	{ position: absolute; float: right; z-index: 1; width: 34px; height: 66px; 
-			background-image: url("assets/watched-ribbon.svg"); margin: -10px;}
 
-#genrefilter		  { width:50%; margin: 0 auto; text-align: center;}
+.watched 	{ position: absolute; float: right; z-index: 1; width: 34px; height: 66px; 
+			background-image: url("watched-ribbon.svg"); margin: -10px;}
+
+.newmovie	{ position: absolute; float: right; z-index: 1; width: 34px; height: 66px; 
+			background-image: url("new-ribbon.svg"); margin: -10px;}
+
+#genrefilter		  { width:80%; margin: 0 auto; text-align: center;}
 .filterbutton		  { display: inline-block; margin-right:20px;  }
 .filterbutton.selected	a { color:white; }
 
