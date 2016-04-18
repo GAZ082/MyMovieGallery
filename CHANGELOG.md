@@ -1,4 +1,7 @@
 
+1.1.1 by rnijenhu
+	+ made the original movie layout the default
+	+ css improved for slider and diff sizes of cover
 
 1.1 by rnijenhu
 	+ changed some pyhton version diffs errors

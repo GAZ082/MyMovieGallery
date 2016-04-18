@@ -240,7 +240,9 @@ def mycopytree(src, dst, symlinks = False, ignore = None):
 		elif os.path.isdir(s):
 			mycopytree(s, d, symlinks, ignore)
 		else:
-			shutil.copy2(s, d)
+			#avoid chmod issues with copy2
+			#shutil.copy2(s, d)
+			shutil.copyfile(s, d)
 
 
 ##########################################################################################################################
@@ -475,24 +477,33 @@ if __name__ == "__main__":
     write_html("<div id='movies'>"+movies_html+"</div>", genres, out_dir)
 
     #verify result (if configured) and release to website
+    assetsUpdate=True;
     if htmllint: 
 	print "Check result (htmllint) .. "
     	with open(os.path.join(out_dir, web_indexfile)) as f:
     		document, errors = tidy_document(f.read(),options={'numeric-entities':1, "show-warnings": htmllint_warnings })
     		f.close()
     		if len(errors) > 0:
+                        assetsUpdate=False;
 			print "we got some errors and will not release: "
 			print error
-    		else:
-			if web_dir=='':
-    				web_dir=os.getcwd()
-			print "Copy assets to: "+web_dir 
-			#copy the assets to the release dir
-			mycopytree(os.path.join(scriptpath,"assets")		,os.path.join(web_dir,"assets"))
-			print "Copy posters to: "+web_dir 
-			mycopytree(os.path.join(out_dir,"posters")		,os.path.join(web_dir,"posters"))
-			print "Release result to website: "+web_dir 
-			mycopytree(os.path.join(out_dir,web_indexfile)		,os.path.join(web_dir))
+   
+   #update assets
+    if assetsUpdate:
+	if web_dir=='':
+    		web_dir=os.getcwd()
+	print "Copy assets to: "+web_dir 
+	#copy the assets to the release dir
+	mycopytree(os.path.join(scriptpath,"assets")		,os.path.join(web_dir,"assets"))
+	
+	#in case we use the htmllint we need to copy the result aswell from out_dir to the web_dir
+	#todo: when inline=true do not copy css and js files
+	if htmllint: 
+		print "Copy posters to: "+web_dir 
+		mycopytree(os.path.join(out_dir,"posters")		,os.path.join(web_dir,"posters"))
+		print "Release result to website: "+web_dir 
+		mycopytree(os.path.join(out_dir,web_indexfile)		,os.path.join(web_dir))
+
     	
 
     #write the movies to cache file
