@@ -36,7 +36,7 @@ pushbullet_device_iden = ''
 moviecache='moviecache.dat'
 #cache where old data is stored
 
-limit=3
+limit=-3
 #limit the query result for KODI to n items, negative is unlimited
 
 refreshposters=False
