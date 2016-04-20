@@ -7,7 +7,10 @@
 * HTML5 valid code, so it renders fine in a myriad of devices such as phones,
 tablets and browsers.
 * Watched movie ribbon.
+* Reference to imdb and trailers
+* Filter by genre and hide watched
 * 5 stars ratings.
+* Customizable layout 
 * Able to download several poster sizes.
 * PushBullet notification to a device.
 * Movie synopsis when you roll over the poster.

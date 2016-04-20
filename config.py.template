@@ -1,0 +1,152 @@
+# --------------------------CONFIGURATION PARAMETERS---------------------------#
+
+host = 'user:password@host'
+# KODI host (ip, hostname). Change this to suit your needs.
+	# format (user:pwd@host) or just the host
+port = '8080'
+# This is the default KODI's port.
+
+gallery_name = 'Movie Galery'
+tmdb_key = 'f8860327b25dbbe0d96d9e5d1db91779'
+poster_size = 'w185'
+# 'w92', 'w154', 'w185', 'w342', 'w500'.
+poster_aspect_ratio=0.66667
+poster_aspect_ratio_offset=0.1
+#poster_aspect_ratio should be 0.66667 with the default css, but to reduce 
+#the amount of missing images you can set the +/- range with offset. 
+#Choosing it large will not suite the default css
+
+language = ['nl', 'en', ''] 
+# English language has the largest poster collection on TMDB. 
+web_dir = './'
+
+# Optional. In case you want to host the script in a different dir.
+# Directory 'assets' must be in the same dir than main.py
+
+web_indexfile = 'index.html'
+#name of the indexfile
+
+pushbullet_api_key = ''
+# Optional. Your PB Access token. If value is other than '', notifications will
+# be activated.
+
+pushbullet_device_iden = ''
+# Your device iden. Use pb_devices.py script to get your device's iden.
+
+moviecache='moviecache.dat'
+#cache where old data is stored
+
+limit=-3
+#limit the query result for KODI to n items, negative is unlimited
+
+refreshposters=False
+#force (new) download of all posters
+
+htmllint=False
+#use htmllint, it will build in temp and check the result before releasing it to web_dir
+
+htmllint_warnings=True
+#set the lint level from error to warning, not wise in productions env cause it will block release
+
+cssinline=False
+#use cssfile inline instead of a cssfile_template reference
+
+cssfile='assets/styles.css'
+cssfile_template	="<link rel='stylesheet' type='text/css' href='%cssfile%'>"
+#use this css file
+
+
+jsfile='assets/script.js'
+jsinline=False
+jsfile_template		="<script type='text/JavaScript' src='%jsfile%'></script>"
+#use this js file with functions as search and filter 
+
+
+projectLink_template ="<a href='https://github.com/GAZ082/MyMovieGallery'>Project link.</a>"
+made_template 		='Made by Gabriel A. Zorrilla / rnijenhu'
+
+tmdblogo_template 	="<img src='assets/tmdb.svg' alt='www.themoviedb.org'>"
+
+meta_template 		=("<meta name='author' content='Gabriel A. Zorrilla'>" + 
+			"<meta name='keywords' content='movie, gallery, HTML5'>" + 
+			"<meta name='description' content='My Movie Gallery !'>" +
+			"<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+            		"<meta charset='UTF-8'>")
+
+trailer_template	="<div class='trailer'><a href='%trailerurl%' target='_blank'><img src='assets/youtube.png' alt='youtube' title='view trailer on youtube'> </a></div>"
+#trailer button, with external player
+
+'''
+trailer_template        =("<div class='trailer'><img src='assets/youtube.png' alt='youtube' class='trailerimg' ></div>" +
+"	<div class='trailervideo'>" +
+"	<iframe type='text/html'  "+
+"	    width='185' "+
+"	    src='http://www.youtube.com/embed/%trailerid%'"+
+"	    frameborder='0'>"+
+"	</iframe>"+
+"	</div>")
+'''
+#trailer button, with internal player (disabled, remove surrounding ''' to enable)
+
+#
+imdb_template		="<div class='imdb'><a href='%imdburl%' target='_blank'><img src='assets/imdb.png' alt='imdb' title='view movie on imdb'> </a></div>"
+#slider imdb button template
+
+
+movie_template=("\n<div class='movie %movieclass%' id='%movieid%' genres='%genreclasses%'>"+
+				"<div class='sliderleft'>"+
+					"<div class='%watchedclass%'></div>"+
+					"<img class='poster' src='%poster_url%' alt='%label%' "+
+					   "title='%label% (%year%) - [%originaltitle%] - %plot% - [%genre%]'><br>"+ 
+					"<div class='star_container'>%starshtml% </div>"+
+			  	"</div>"+
+				"<div class='sliderright closed'>" +
+					"<div class='movietextslider'>"+
+						"<h3>%label% (%year%)</h3>"+ 
+						"<div class='star_container'>%starshtml% </div>"+
+						"<div class='originaltitle'>[%originaltitle%]</div> "+
+						"<div class='genre'>[%genre%]</div>"+
+						"<div class='plot'>%plot%</div>" +
+						"<div class='buttons'>%trailerhtml% %imdbhtml%</div>"+
+					"</div>"+
+				"</div>"+ 
+		"</div>")
+#movie template with cover+slider and no text (orginal)
+
+'''
+movie_template=("\n<div class='movie %movieclass%' id='%movieid%' genres='%genreclasses%'>"+
+				"<div class='sliderleft'>"+
+					"<div class='%watchedclass%'></div>"+
+					"<img class='poster' src='%poster_url%' alt='%label%' "+
+					   "title='%label% (%year%) - [%originaltitle%] - %plot% - [%genre%]'><br>"+ 
+					"<div class='star_container'>%starshtml% </div>"+
+					"<div class='movietext'>"+
+					     "<div class='label'>%label%</div>"+
+					     "<div class='genre'>%genre%</div>"+
+					     "<div class='year' >%year% </div>"+
+					"</div>"+
+			  	"</div>"+
+				"<div class='sliderright closed'>" +
+					"<div class='movietextslider'>"+
+						"<h3>%label% (%year%)</h3>"+ 
+						"<div class='star_container'>%starshtml% </div>"+
+						"<div class='originaltitle'>[%originaltitle%]</div> "+
+						"<div class='genre'>[%genre%]</div>"+
+						"<div class='plot'>%plot%</div>" +
+						"<div class='buttons'>%trailerhtml% %imdbhtml%</div>"+
+					"</div>"+
+				"</div>"+ 
+		"</div>")
+'''
+#movie template with cover+slider and no text (disabled, remove surrounding ''' to enable)
+
+
+
+html_template =("<!DOCTYPE html><html><head><title>%NAME%</title>%META% %CSSFILE%  </head>"+
+			        "<body><div id='container'>"+
+				"<div id='gallery_name'> %NAME% </div>"+
+				"%GENREFILTER% %WATCHEDFILTER% %MOVIE_HTML%"+ 
+				"<div id='line'></div>"+
+                		"<div id='footer'> Movie list updated on: %CREATED% <br> %MADEBY% <br> %PROJECTURL% <br>Thanks to:<br><br>"+
+				"%TMDBLOGO%</div></div></body> %JSFILE% </html>")
+#HTML (page) template
