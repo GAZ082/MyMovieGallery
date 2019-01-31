@@ -1,9 +1,10 @@
 # MyMovieGallery
-######A Python script for generating a HTML5 valid poster movie gallery from KODI/XBMC and The Movie Database.
+
+###### A Python script for generating a HTML5 valid poster movie gallery from KODI/XBMC and The Movie Database.
 
 <img align='middle' src='https://lh6.googleusercontent.com/-4O55ZZmjQxo/VRG5K3YZssI/AAAAAAAACbw/E8rIH1bHxU4/w804-h549-no/intro.png'>
 
-###Features
+## Features
 * HTML5 valid code, so it renders fine in a myriad of devices such as phones,
 tablets and browsers.
 * Watched movie ribbon.
@@ -16,11 +17,11 @@ tablets and browsers.
 * Movie synopsis when you roll over the poster.
 * Eye candy ;-).
 
-###Requirements
+## Requirements
 * Python 2 or 3.
 * python2-requests (or python3-requests).
 
-###Configuration
+## Configuration
 1. Make sure you put the directory 'assets' in the 'web_server' you specified. main.py may be everywhere (your home dir for example, away from the public server directory, for better security).
 2. Edit main.py and setup the server host and port if needed.
 3. Name your gallery and change poster size if desired.
@@ -32,7 +33,7 @@ and index.html will be written in the parameter web_dir.
 Use the provided pb_devices.py script to get your devices iden (first you need a
 pushbullet Access Token https://www.pushbullet.com/account).
 
-###How It Works
+## How It Works
 1. Pulls all your movies from KODI. Gets IMDB ID, rating, synopsis, playcount
 and label. On playcount > 0 the poster is marked with a red ribbon.
 2. Checks if the poster is already in the assets/w### directory. If not,
@@ -41,9 +42,9 @@ downloads. If no directory is there, it creates. The posters downloaded are 2:3.
 4. If no new posters are needed, it just recreated index.html but with the
 latest information from KODI, ie, updated rating, if watched or not, etc.
 
-###Liked it? Tip me!: https://paypal.me/GabrielZorrilla
+### Liked it? Tip me!: https://paypal.me/GabrielZorrilla
 
-###Final Words
+## Final Words
 This is an early release. Just tested on a Linux machine with python 2 and 3.
 Please report any bugs and also do not be shy on suggesting things you would
 like to see or corrected. Also, the code is available, so be free to look at it
